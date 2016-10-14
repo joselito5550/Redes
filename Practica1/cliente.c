@@ -6,16 +6,16 @@
 #include <stdlib.h>
 
 /* --------------------------------------------------------------------------------------
- 
+
  Envía un número aleatorio al servidor, quien el devuelve el número incremetnado
 
 ---------------------------------------------------------------------------------------- */
- 
+
 int main (int argc, char **argv)
 {
-  
-	/*---------------------------------------------------- 
-		Descriptor del socket y buffer para datos 
+
+	/*----------------------------------------------------
+		Descriptor del socket y buffer para datos
 	-----------------------------------------------------*/
 	int Socket_Cliente;
 	char mensaje [80];
@@ -23,7 +23,7 @@ int main (int argc, char **argv)
 	struct timeval timeout;
 	fd_set lectura;
 	int salida;
-	
+
 	//Inicializar la estructua timeval
 	timeout.tv_sec = atoi(argv[2]);
 	timeout.tv_usec = 0;
@@ -35,10 +35,10 @@ int main (int argc, char **argv)
    	/* -----------------------------------------------------
    		Informaci\ufffdn del Servidor
    	-----------------------------------------------------*/
-   	struct sockaddr_in Servidor;  
+   	struct sockaddr_in Servidor;
    	socklen_t Longitud_Servidor;
-  
-  
+
+
 	/* --------------------------------------------------
 		Se abre el socket cliente
 	---------------------------------------------------*/
@@ -46,7 +46,7 @@ int main (int argc, char **argv)
 	if (Socket_Cliente == -1)
 	{
 		printf ("No se puede abrir el socket cliente\n");
-		exit (-1);	
+		exit (-1);
 	}
 
 		/*---------------------------------------------------------------------
@@ -94,17 +94,17 @@ int main (int argc, char **argv)
 		recibido = recvfrom (Socket_Cliente, respuesta, sizeof(respuesta), 0, (struct sockaddr *) &Servidor, &Longitud_Servidor);
 		intentos++;
   	}while(intentos < 3 && recibido < 1);
-	
+
 
 	/*----------------------------------------------------------------------
 		Esperamos la respuesta del Servidor
-		----------------------------------------------------------------------- */ 	
+		----------------------------------------------------------------------- */
 		if (recibido > 0)
   		printf ("Leido %s\n", respuesta);
 		else
   		printf ("Error al leer del servidor\n");
-	
-	
-	
+
+
+
 	close(Socket_Cliente);
 }
