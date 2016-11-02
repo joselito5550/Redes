@@ -91,6 +91,10 @@ int salir=0;
 			if(strcmp(cabecera,"+Ok.")==0){
 				salir=analizar_servidor_info(buffer);
 			}	
+			else if(strcmp(cabecera,"+Frase.")==0){
+				cout<<"asdfs";
+				salir=analizar_servidor_info(buffer);
+			}
 			else if(strcmp(cabecera,"-Err.")==0)
 				salir=analizar_servidor_info(buffer);
 			//else if(strcmp(cabecera,"CARTON")==0){

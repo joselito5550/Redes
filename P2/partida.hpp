@@ -13,7 +13,8 @@ class Partida{
 		int numJugadores_;
 		bool comenzada_;
 		bool finalizada_;
-
+		string frase_oculta;
+		string frase_real;
 		vector<int> estado_;
 	public:
 		Partida(){
@@ -28,7 +29,10 @@ class Partida{
 
 		vector<Jugador> getJugadores()const{return jugadores_;};
 		void setJugadores(const vector<Jugador> &jugadores){jugadores_=jugadores;};
-
+		void setFraseOculta(const string frass){frase_oculta = frass;};
+		string getFraseOculta(){return frase_oculta;};
+		void setFrase(const string frass){frase_real = frass;};
+		string getFrase(){return frase_real;};
 		int getNumJugadores()const{return numJugadores_;};
 		void setNumJugadores(const int & numJugadores){numJugadores_=numJugadores;};
 		bool isComenzada()const{return comenzada_;};
@@ -44,6 +48,7 @@ class Partida{
 		bool salir(const Jugador &j);
 		int buscar_jugador(int id);
 
+		bool buscarLetra(char letra);
 		
 
 };

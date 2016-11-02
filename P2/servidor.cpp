@@ -23,7 +23,6 @@ int main (){
 	int i,j;
 	int recibidos;
 	string oracion,aux;
-	char x;
 	int on;
 
 
@@ -195,26 +194,40 @@ int main (){
 									}
 									}
 									if(strcmp(cabecera,"PARTIDA-INDIVIDUAL\n")==0){
-										strcpy(buffer,"Ok, Has seleccionado partida individual\n");
-										send(new_sd,buffer,strlen(buffer),0);
-
 										if(buscarPartida(i,arrayPartidas)==-1){
 											Partida p;
 											arrayPartidas.push_back(p);
 											numPartidas++;
 											cout<<"Creando partida numero"<<numPartidas<<endl;
-											oracion=extraerFichero();
-											aux=ocultarOracion(oracion);
-											cout<<aux<<endl;
-											cout<<"Introduce vocal o consonante"<<endl;
-											cin>>x;
-											//r.insert(x);
-											//r.printf();
+											oracion = "+Frase. ";
+											aux = "+Frase. ";
+											oracion+=extraerFichero();
+											cout<<"oracion "<<oracion;
+											aux+=ocultarOracion(oracion);
+											cout<<"aux "<<aux;
+											p.setFrase(oracion);
+											p.setFraseOculta(aux);
+											strcpy(buffer,aux.c_str());
+											send(i,buffer,strlen(buffer),0);
 										}
 									}
 
 									else if(strcmp(cabecera,"SALIR-PARTIDA\n")==0){
 										eliminar_jugador_partida(i,numPartidas,arrayPartidas, arrayJugadores);
+									}
+									else if(strcmp(cabecera,"VOCAL")==0){
+										//RECIBIDA VOCAL
+
+										Partida p = arrayPartidas[buscarPartida(i,arrayPartidas)];
+										char letra = buffer[0];
+										bool esta = p.buscarLetra(letra);
+										if(esta) cout<<"bien";
+										strcpy(buffer,p.getFraseOculta().c_str());
+										send(i,buffer,strlen(buffer),0);
+									}
+
+									else if(strcmp(cabecera,"CONSONANTE")==0){
+										//RECIBIDA CONSONANTE
 									}
 
 								}

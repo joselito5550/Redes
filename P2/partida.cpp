@@ -18,6 +18,17 @@ bool Partida::salir(const Jugador &j){
 return false;
 }
 
+bool Partida::buscarLetra(char letra){
+	bool esta = false;
+	for(int i=0;i<(int)frase_real.length();i++){
+		if(letra==frase_real[i]){
+			frase_oculta[i] = letra;
+			esta = true;
+		}
+	}
+	return esta;
+}
+
 int Partida::buscar_jugador(int id){
 	for(unsigned int i=0;i<getJugadores().size();i++){
 		if(getJugadores()[i].getId()==id)

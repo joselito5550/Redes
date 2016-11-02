@@ -14,6 +14,7 @@ class Jugador{
 		string password_;
 		int id_;
 		bool logueado_;
+		int puntuacion;
 		
 	public:
 		Jugador(){};
@@ -21,6 +22,7 @@ class Jugador{
 			nombre_=nombre;
 			setId(id);
 			setLogueado(false);
+			puntuacion=0;
 		};
 		~Jugador(){};
 
@@ -29,6 +31,7 @@ class Jugador{
 				setNombre(j.getNombre());
 				setPassword(j.getPassword());
 				setId(j.getId());
+				setPuntuacion(j.getPuntuacion());
 			}
 			return *this;
 		};
@@ -38,6 +41,8 @@ class Jugador{
 		void setPassword(const string &password){password_=password;};
 		int getId()const{return id_;};
 		void setId(const int &id){id_=id;};
+		int getPuntuacion()const{return puntuacion;}
+		void setPuntuacion(const int &puntuacion_){puntuacion=puntuacion_;};
 		bool isLogueado()const{return logueado_;};
 		void setLogueado(const bool &logueado){logueado_=logueado;};
 		bool loguear(string registro){

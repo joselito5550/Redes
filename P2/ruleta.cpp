@@ -1,4 +1,5 @@
 #include "ruleta.hpp"
+#include <fstream>
 
 void loguear(int id, char buffer[],vector<Jugador> &jugadores){
 	char passwd[50];
@@ -209,43 +210,33 @@ void manejador (int signum){
 }
 
 
-
+//HAY QUE COGERLA ALEATORIAMENTE
 string extraerFichero(){
-	ifstream F;
-	F.open("frases.txt");
-	string linea;
-	string aux;
-	getline(F,linea);
-		while(!F.eof()){
-			for(int i=0;i<int(linea.length());i++){
-				if(linea[i]==' '){
-					aux[i]=' ';
-				}else{
-					aux[i]='-';
-				}
-			}
-
-			cout<<aux<<endl;
-			getline(F,linea);
-		}
+	ifstream F("frases.txt");
+	
+	//string linea;
+	char linea[128];
+		//while(!F.eof()){
+			F.getline(linea,128);
+		//}
+	
 	F.close();
-
 	return linea;
 };
 
 
 string ocultarOracion(const string oracion){
 	string aux;
-
-	for(int i=0;i<int(oracion.length());i++){
+	
+	for(int i=9;i<int(oracion.length());i++){
 		if(oracion[i]!=' '){
-			aux[i]='-';
+			aux+='-';
 		}else{
-			aux[i]=' ';
+			aux+=' ';
 		}
 	}
-	cout<<"Aux: "<<aux<<endl;
-	cout<<oracion.length()<<endl;
+	//cout<<"Aux: "<<aux<<endl;
+	//cout<<oracion.length()<<endl;
 	return aux;
 }
 
