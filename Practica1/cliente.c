@@ -81,7 +81,7 @@ int main (int argc, char **argv)
   		printf("Enviado: %s\n", mensaje);
 		int enviado = sendto (Socket_Cliente, (char *) &mensaje, sizeof(mensaje), 0,(struct sockaddr *) &Servidor, Longitud_Servidor);
   		FD_ZERO(&lectura);
-		FD_SET(0,&lectura);
+		FD_SET(Socket_Cliente,&lectura);
 		salida = select(Socket_Cliente+1,&lectura,NULL,NULL,&timeout);
 
 		if(salida == 0){
@@ -93,7 +93,7 @@ int main (int argc, char **argv)
 		}
 		recibido = recvfrom (Socket_Cliente, respuesta, sizeof(respuesta), 0, (struct sockaddr *) &Servidor, &Longitud_Servidor);
 		intentos++;
-  	}while(intentos < 3 && recibido < 1);
+  	}while(intentos != 3 && recibido < 1);
 
 
 	/*----------------------------------------------------------------------

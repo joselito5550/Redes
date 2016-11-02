@@ -4,6 +4,8 @@
 #include <netinet/in.h>
 #include <netdb.h>
 #include <stdlib.h>
+#include <time.h>
+#include <string.h>
 
 
 /*
@@ -21,12 +23,12 @@ int main ()
 	
 	//Variables 
 	char mensaje[80] = "XX";
-	char respuesta[80];
+	char respuesta[80] = "hola";
 	time_t tiempo;
 	struct tm * stTm;
 
 	tiempo = time(NULL);
-	stTm = localtime(&time);
+	stTm = localtime(&tiempo);
 	
 	/* -----------------------------------------------------
    		Informaci\ufffdn del Cliente
@@ -55,7 +57,7 @@ int main ()
 
 	if (bind (Socket_Servidor, (struct sockaddr *)&Servidor, sizeof (Servidor)) == -1)
 	{
-		close (Socket_Servidor);
+		close(Socket_Servidor);
 		exit (-1);
 	}
 	
@@ -89,6 +91,8 @@ int main ()
     		//Respuesta a DAY
     		if(strcmp(mensaje,"DAY") == 0){
     			strftime(respuesta,80,"%A, %d de %B de %Y", stTm);
+    			printf ("Recibido %s, enviando la Fecha: %s\n", mensaje, respuesta);
+
     		}
     		//Respuseta a TIME
     		if(strcmp(mensaje,"TIME") == 0){
@@ -102,8 +106,7 @@ int main ()
       	/* ------------------------------------------------------------------
 				Devolvemos el n\ufffdmero incrementado al cliente
 				--------------------------------------------------------------------*/
-			int enviado = sendto (Socket_Servidor, &respuesta, sizeof(respuesta), 0,
-			(struct sockaddr *) &Cliente, Longitud_Cliente);
+			sendto (Socket_Servidor, &respuesta, sizeof(respuesta), 0,(struct sockaddr *) &Cliente, Longitud_Cliente);
 
 
     }
